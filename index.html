@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Coisas que fazem vc ser vc</title>
+
+<style>
+body {
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg, #ffdde1, #ee9ca7);
+    text-align: center;
+    margin: 0;
+    padding: 40px;
+    overflow-y: auto;
+}
+
+h1 {
+    color: white;
+    margin-bottom: 30px;
+}
+
+#quadrados {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.quadrado {
+    width: 180px;
+    height: 100px;
+    background: white;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-weight: bold;
+    transition: 0.3s;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+.quadrado:hover {
+    transform: scale(1.05);
+    background: #ffe6ec;
+}
+
+/* ===== CORAÇÃO CENTRALIZADO ===== */
+.coracao {
+    position: relative;
+    width: 100px;
+    height: 100px;
+    margin: 50px auto 20px;
+    transform: rotate(-45deg);
+    animation: bater 1.5s infinite ease-in-out;
+}
+
+.coracao::before,
+.coracao::after {
+    content: "";
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    background: red;
+    border-radius: 50%;
+}
+
+.coracao::before {
+    top: -50px;
+    left: 0;
+}
+
+.coracao::after {
+    left: 50px;
+    top: 0;
+}
+
+.coracao {
+    background: red;
+}
+
+/* ===== TEXTO ===== */
+.texto-amor {
+    width: 75%;
+    max-width: 750px;
+    margin: 40px auto 60px;
+
+    color: #fff;
+    font-size: 18px;
+    line-height: 1.7;
+    text-align: center;
+
+    background: rgba(0,0,0,0.25);
+    padding: 20px 25px;
+    border-radius: 15px;
+    backdrop-filter: blur(6px);
+
+    opacity: 0;
+    animation: aparecerTexto 3s forwards;
+}
+
+/* ===== CONTAINER ===== */
+#areaCoracao {
+    margin-top: 40px;
+}
+
+/* ===== ANIMAÇÕES ===== */
+@keyframes aparecerTexto {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes bater {
+    0%, 100% { transform: rotate(-45deg) scale(1); }
+    50% { transform: rotate(-45deg) scale(1.1); }
+}
+</style>
+</head>
+
+<body>
+
+<h1>Coisas que fazem você ser você</h1>
+<div id="quadrados"></div>
+<div id="areaCoracao"></div>
+
+<script>
+const frases = [
+    "Você é único",
+    "Você é especial",
+    "Você é forte",
+    "Você é capaz",
+    "Você é inteligente",
+    "Você é guerreiro",
+    "Você é determinado",
+    "Você é corajoso",
+    "Você é gentil",
+    "Você é a porra toda"
+];
+
+let index = 0;
+
+function criarQuadrado() {
+    const div = document.createElement("div");
+    div.className = "quadrado";
+    div.innerText = frases[index];
+
+    div.onclick = () => {
+        div.style.pointerEvents = "none";
+        div.style.opacity = "0.6";
+
+        index++;
+
+        if (index < frases.length) {
+            criarQuadrado();
+        } else {
+            setTimeout(criarCoracao, 800);
+        }
+    };
+
+    document.getElementById("quadrados").appendChild(div);
+}
+
+function criarCoracao() {
+    const area = document.getElementById("areaCoracao");
+
+    const coracao = document.createElement("div");
+    coracao.className = "coracao";
+    area.appendChild(coracao);
+
+    const texto = document.createElement("div");
+    texto.className = "texto-amor";
+    texto.innerText = `Como te descrever em palavras, sendo que quando olho nos seus olhos eu perco a fala, esqueço do mundo e vejo a imensidão do quanto te admiro e amo...
+
+E eu não sei como explicar o tanto que você me tem... mas digo que se um dia eu te perder isso vai me machucar pelo resto da vida, mas mesmo assim eu iria te amar e torcer por cada vitória e sorriso seu.
+
+Como explicar o quanto você me faz feliz, como te dizer em meras palavras humanas aquilo que a minha alma eternizou no tempo e no céu...
+
+Obrigada por dedicar seu tempo a mim, apesar do cansaço. Obrigada por me fazer sentir segurança e felicidade ao seu lado.
+
+Saiba que eu te quero não só fisicamente, te quero quando estiver feliz, triste, cansado, perdido ou desanimado. Te quero durante a rotina exaustiva, nos dias leves.
+
+Não é carência… é escolha. Em você encontrei algo único, algo que me completa.
+
+E se eu tivesse apenas uma escolha nessa vida… eu escolheria você.
+
+Porque 5 segundos olhando nos seus olhos, valem mais que uma vida inteira sem você.
+
+Amar não é aplaudir so o que é bonito. É abraçar o que não é perfeito e ainda sim chamar de lar. É ver suas qualidades, enxergar seus defeitos, entender suas falhas, conhecer suas partes mais difíceis e mesmo assim permanecer.
+
+O amor não é so beleza, mas é escolha. E você Leonel é a minha escolha favorita nesse mundo quebrado. Saiba eu te amo e vou te amar até que a eternidade.`;
+
+    area.appendChild(texto);
+
+    window.scrollTo({
+        top: document.body.scrollHeight,
+        behavior: "smooth"
+    });
+}
+
+criarQuadrado();
+</script>
+
+</body>
+</html>
